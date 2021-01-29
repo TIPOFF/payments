@@ -1,0 +1,58 @@
+{
+    "name": "tipoff/payments",
+    "description": "Laravel Package for implementing Ecommerce payments",
+    "keywords": [
+        "tipoff",
+        "payments"
+    ],
+    "homepage": "https://github.com/tipoff/payments",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tipoff",
+            "email": "packages@tipoff.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "spatie/laravel-package-tools": "^1.1",
+        "illuminate/contracts": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.3",
+        "spatie/laravel-ray": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tipoff\\Payments\\": "src",
+            "Tipoff\\Payments\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tipoff\\Payments\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tipoff\\Payments\\PaymentsServiceProvider"
+            ],
+            "aliases": {
+                "Payments": "Tipoff\\Payments\\PaymentsFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
