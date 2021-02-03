@@ -1,4 +1,4 @@
-<?php namespace Database\Factories;
+<?php namespace Tipoff\Payments\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tipoff\Support\Support;
