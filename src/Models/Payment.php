@@ -38,32 +38,32 @@ class Payment extends BaseModel
 
     public function order()
     {
-        return $this->belongsTo(config('payments.order_model'));
+        return $this->belongsTo(config('payments.model_class.order'));
     }
 
     public function customer()
     {
-        return $this->belongsTo(config('payments.customer_model'));
+        return $this->belongsTo(config('payments.model_class.customer'));
     }
 
     public function invoice()
     {
-        return $this->belongsTo(config('payments.invoice_model'));
+        return $this->belongsTo(config('payments.model_class.invoice'));
     }
 
     public function creator()
     {
-        return $this->belongsTo(config('payments.user_model'), 'creator_id');
+        return $this->belongsTo(config('payments.model_class.user'), 'creator_id');
     }
 
     public function updater()
     {
-        return $this->belongsTo(config('payments.user_model'), 'updater_id');
+        return $this->belongsTo(config('payments.model_class.user'), 'updater_id');
     }
 
     public function refunds()
     {
-        return $this->hasMany(config('payments.refund_model'));
+        return $this->hasMany(config('payments.model_class.refund'));
     }
 
     public function getAmountRefundableAttribute()
@@ -92,7 +92,7 @@ class Payment extends BaseModel
      */
     public function requestRefund($amount = null, $method = 'Stripe')
     {
-        return config('payments.refund_model')::create([
+        return config('payments.model_class.refund')::create([
             'amount' => $amount,
             'method' => $method,
             'payment_id' => $this->id,

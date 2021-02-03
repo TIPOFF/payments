@@ -3,28 +3,19 @@
 return [
 
     /**
-     * User model
+     * Model class references.
      */
-    'user_model'     => \App\Models\User::class,
+    'model_class' => [
 
-    /**
-     * Order model
-     */
-    'order_model'    => \App\Models\Order::class,
+        'user' => \App\Models\User::class,
 
-    /**
-     * Customer model
-     */
-    'customer_model' => \App\Models\Customer::class,
+        'order' => \App\Models\Order::class,
 
-    /**
-     * Invoice model
-     */
-    'invoice_model'  => \App\Models\Invoice::class,
+        'customer' => \App\Models\Customer::class,
 
-    /**
-     * Refund model
-     */
-    'refund_model'  => \App\Models\Refund::class,
+        'invoice' => \App\Models\Invoice::class,
+
+        'refund' => \App\Models\Refund::class,
+    ]
 
 ];
