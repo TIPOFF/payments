@@ -49,7 +49,11 @@ jobs:
         run: composer config http-basic.nova.laravel.com ${env:NOVA_USERNAME} ${env:NOVA_PASSWORD}
 
       - name: Install dependencies
+        env:
+          NOVA_USERNAME: ${{ secrets.NovaUsername }}
+          NOVA_PASSWORD: ${{ secrets.NovaPassword }}
         run: |
+          composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
