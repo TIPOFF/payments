@@ -9,16 +9,16 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $userModel = config('payments.model_class.user');
+            $userModel = config('tipoff.model_class.user');
             $userTable = (new $userModel)->getTable();
 
-            $customerModel = config('payments.model_class.customer');
+            $customerModel = config('tipoff.model_class.customer');
             $customerTable = (new $customerModel)->getTable();
 
-            $orderModel = config('payments.model_class.order');
+            $orderModel = config('tipoff.model_class.order');
             $orderTable = (new $orderModel)->getTable();
 
-            $invoiceModel = config('payments.model_class.invoice');
+            $invoiceModel = config('tipoff.model_class.invoice');
             $invoiceTable = (new $invoiceModel)->getTable();
 
             $table->id();
