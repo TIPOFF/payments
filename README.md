@@ -1,7 +1,7 @@
 # Laravel Package for implementing Ecommerce payments
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tipoff/payments.svg?style=flat-square)](https://packagist.org/packages/tipoff/payments)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/tipoff/payments/run-tests?label=tests)](https://github.com/tipoff/payments/actions?query=workflow%3ATests+branch%3Amaster)
+![Tests](https://github.com/tipoff/payments/workflows/Tests/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/tipoff/payments.svg?style=flat-square)](https://packagist.org/packages/tipoff/payments)
 
 
