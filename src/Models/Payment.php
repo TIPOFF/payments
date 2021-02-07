@@ -1,11 +1,11 @@
 <?php namespace TipOff\Payments\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Tipoff\Support\Models\BaseModel;
+use Tipoff\Support\Traits\HasPackageFactory;
 
 class Payment extends BaseModel
 {
-    use HasFactory;
+    use HasPackageFactory;
 
     const METHOD_STRIPE = 'Stripe';
 
