@@ -21,13 +21,13 @@ class PaymentFactory extends Factory
     {
         return [
             'charge_id'   => $this->faker->numberBetween(100000, 900000),
-            'order_id'    => Support::randomOrCreate(app('order')),
-            'customer_id' => Support::randomOrCreate(app('customer')),
-            'invoice_id'  => Support::randomOrCreate(app('invoice')),
+            'order_id'    => randomOrCreate(app('order')),
+            'customer_id' => randomOrCreate(app('customer')),
+            'invoice_id'  => randomOrCreate(app('invoice')),
             'amount'      => $this->faker->numberBetween(100, 40000),
             'method'      => $this->faker->randomElement(['online', 'phone', 'in-person']),
-            'creator_id'  => Support::randomOrCreate(app('user')),
-            'updater_id'  => Support::randomOrCreate(app('user'))
+            'creator_id'  => randomOrCreate(app('user')),
+            'updater_id'  => randomOrCreate(app('user'))
         ];
     }
 }
