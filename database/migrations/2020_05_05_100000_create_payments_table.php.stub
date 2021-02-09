@@ -9,29 +9,17 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $userModel = config('tipoff.model_class.user');
-            $userTable = (new $userModel)->getTable();
-
-            $customerModel = config('tipoff.model_class.customer');
-            $customerTable = (new $customerModel)->getTable();
-
-            $orderModel = config('tipoff.model_class.order');
-            $orderTable = (new $orderModel)->getTable();
-
-            $invoiceModel = config('tipoff.model_class.invoice');
-            $invoiceTable = (new $invoiceModel)->getTable();
-
             $table->id();
-            $table->foreignId('order_id')->index()->references('id')->on($orderTable);
-            $table->foreignId('customer_id')->references('id')->on($customerTable); // Defaults to customer_id on order, but allows payment to be made by different customer when paying an invoice
-            $table->foreignId('invoice_id')->nullable()->references('id')->on($invoiceTable);
+            $table->foreignIdFor(app('order'), 'order_id')->index();
+            $table->foreignIdFor(app('customer'), 'customer_id'); // Defaults to customer_id on order, but allows payment to be made by different customer when paying an invoice
+            $table->foreignIdFor(app('invoice'), 'invoice_id')->nullable();
             $table->unsignedInteger('amount'); // Amount is in cents.
             $table->unsignedInteger('amount_refunded')->nullable();
             $table->string('method'); // Will need to define these
             $table->string('charge_id')->nullable(); // @todo rename to charge_number
 
-            $table->foreignId('creator_id')->references('id')->on($userTable);
-            $table->foreignId('updater_id')->nullable()->references('id')->on($userTable);
+            $table->foreignIdFor(app('user'), 'creator_id');
+            $table->foreignIdFor(app('user'), 'updater_id')->nullable();
             $table->timestamps();
         });
     }
