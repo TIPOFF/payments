@@ -94,7 +94,7 @@ class Payment extends BaseModel
      */
     public function requestRefund($amount = null, $method = 'Stripe')
     {
-        return $refund::create([
+        return $this->refund::create([
             'amount' => $amount,
             'method' => $method,
             'payment_id' => $this->id,
