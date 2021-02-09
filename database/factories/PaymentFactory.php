@@ -10,7 +10,7 @@ class PaymentFactory extends Factory
      *
      * @var string
      */
-    protected $model = Payment:class;
+    protected $model = Payment::class;
 
     /**
      * Define the model's default state.
