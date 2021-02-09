@@ -1,7 +1,7 @@
 <?php namespace Tipoff\Payments\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tipoff\Support\Support;
+use Tipoff\Payments\Models\Payment;
 
 class PaymentFactory extends Factory
 {
@@ -10,7 +10,7 @@ class PaymentFactory extends Factory
      *
      * @var string
      */
-    protected $model = app('payment');
+    protected $model = Payment:class;
 
     /**
      * Define the model's default state.
