@@ -38,32 +38,32 @@ class Payment extends BaseModel
 
     public function order()
     {
-        return $this->belongsTo(config('tipoff.model_class.order'));
+        return $this->belongsTo(app('order'));
     }
 
     public function customer()
     {
-        return $this->belongsTo(config('tipoff.model_class.customer'));
+        return $this->belongsTo(app('customer'));
     }
 
     public function invoice()
     {
-        return $this->belongsTo(config('tipoff.model_class.invoice'));
+        return $this->belongsTo(app('invoice'));
     }
 
     public function creator()
     {
-        return $this->belongsTo(config('tipoff.model_class.user'), 'creator_id');
+        return $this->belongsTo(app('user'), 'creator_id');
     }
 
     public function updater()
     {
-        return $this->belongsTo(config('tipoff.model_class.user'), 'updater_id');
+        return $this->belongsTo(app('user'), 'updater_id');
     }
 
     public function refunds()
     {
-        return $this->hasMany(config('tipoff.model_class.refund'));
+        return $this->hasMany(app('refund'));
     }
 
     public function getAmountRefundableAttribute()
@@ -92,7 +92,7 @@ class Payment extends BaseModel
      */
     public function requestRefund($amount = null, $method = 'Stripe')
     {
-        return config('tipoff.model_class.refund')::create([
+        return app('refund')::create([
             'amount' => $amount,
             'method' => $method,
             'payment_id' => $this->id,
