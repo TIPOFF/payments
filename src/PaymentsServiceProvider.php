@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Tipoff\Payments;
 
-use Illuminate\Support\Str;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Tipoff\Payments\Commands\PaymentsCommand;
 
 class PaymentsServiceProvider extends PackageServiceProvider
 {
