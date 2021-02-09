@@ -13,6 +13,8 @@ class Payment extends BaseModel
     protected $casts = [
     ];
 
+    protected $refund = app('refund');
+
     protected static function boot()
     {
         parent::boot();
@@ -92,7 +94,7 @@ class Payment extends BaseModel
      */
     public function requestRefund($amount = null, $method = 'Stripe')
     {
-        return app('refund')::create([
+        return $refund::create([
             'amount' => $amount,
             'method' => $method,
             'payment_id' => $this->id,
