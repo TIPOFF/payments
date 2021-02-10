@@ -2,9 +2,9 @@
 
 namespace Tipoff\Payments\Policies;
 
-use Tipoff\Payments\Models\Payment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Tipoff\Payments\Models\Payment;
 
 class PaymentPolicy
 {
