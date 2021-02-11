@@ -2,11 +2,13 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Tipoff\Support\Models\BaseModel;
+use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Traits\HasUpdater;
 
 class Payment extends BaseModel
 {
-    use HasPackageFactory;
+    use HasPackageFactory, HasCreator, HasUpdater;
 
     const METHOD_STRIPE = 'Stripe';
 
@@ -18,21 +20,12 @@ class Payment extends BaseModel
     {
         parent::boot();
 
-        static::creating(function ($payment) {
-            if (empty($payment->creator_id) && auth()->check()) {
-                $payment->creator_id = auth()->id();
-            }
-        });
-
         static::saving(function ($payment) {
             if (empty($payment->order_id)) {
                 throw new \Exception('A payment must be applied to an order.');
             }
             if (empty($payment->customer_id)) {
                 throw new \Exception('A payment must be made by a customer.');
-            }
-            if (auth()->check()) {
-                $payment->updater_id = auth()->id();
             }
         });
     }
@@ -50,16 +43,6 @@ class Payment extends BaseModel
     public function invoice()
     {
         return $this->belongsTo(app('invoice'));
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(app('user'), 'creator_id');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo(app('user'), 'updater_id');
     }
 
     public function refunds()
