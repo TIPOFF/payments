@@ -1,5 +1,6 @@
 <?php namespace TipOff\Payments\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasPackageFactory;
 
@@ -94,7 +95,7 @@ class Payment extends BaseModel
     {
         /** @var Model $refundModel */
         $refundModel = app('refund');
-            
+
         return $refundModel::create([
             'amount' => $amount,
             'method' => $method,
