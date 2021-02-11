@@ -8,7 +8,9 @@ use Tipoff\Support\Traits\HasUpdater;
 
 class Payment extends BaseModel
 {
-    use HasPackageFactory, HasCreator, HasUpdater;
+    use HasPackageFactory;
+    use HasCreator;
+    use HasUpdater;
 
     const METHOD_STRIPE = 'Stripe';
 
