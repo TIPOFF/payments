@@ -1,5 +1,6 @@
 <?php namespace TipOff\Payments\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasPackageFactory;
 
@@ -12,8 +13,6 @@ class Payment extends BaseModel
     protected $guarded = ['id'];
     protected $casts = [
     ];
-
-    protected $refund = app('refund');
 
     protected static function boot()
     {
@@ -94,7 +93,10 @@ class Payment extends BaseModel
      */
     public function requestRefund($amount = null, $method = 'Stripe')
     {
-        return $this->refund::create([
+        /** @var Model $refundModel */
+        $refundModel = app('refund');
+
+        return $refundModel::create([
             'amount' => $amount,
             'method' => $method,
             'payment_id' => $this->id,
