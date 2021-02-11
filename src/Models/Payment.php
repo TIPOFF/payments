@@ -92,7 +92,10 @@ class Payment extends BaseModel
      */
     public function requestRefund($amount = null, $method = 'Stripe')
     {
-        return app('refund')::create([
+        /** @var Model $refundModel */
+        $refundModel = app('refund');
+            
+        return $refundModel::create([
             'amount' => $amount,
             'method' => $method,
             'payment_id' => $this->id,
