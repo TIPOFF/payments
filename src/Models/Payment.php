@@ -14,7 +14,6 @@ class Payment extends BaseModel
 
     const METHOD_STRIPE = 'Stripe';
 
-    protected $guarded = ['id'];
     protected $casts = [
     ];
 
