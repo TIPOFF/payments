@@ -1,4 +1,6 @@
-<?php namespace TipOff\Payments\Models;
+<?php
+
+namespace Tipoff\Payments\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Tipoff\Support\Models\BaseModel;

@@ -1,93 +1,48 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tipoff\Payments\Policies;
 
-use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Tipoff\Support\Contracts\Models\UserInterface;
 use Tipoff\Payments\Models\Payment;
 
 class PaymentPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
+    public function viewAny(UserInterface $user): bool
     {
         return $user->hasPermissionTo('view payments') ? true : false;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Payment  $payment
-     * @return mixed
-     */
-    public function view(User $user, Payment $payment)
+    public function view(UserInterface $user, Payment $payment): bool
     {
         return $user->hasPermissionTo('view payments') ? true : false;
     }
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
+    public function create(UserInterface $user): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Payment  $payment
-     * @return mixed
-     */
-    public function update(User $user, Payment $payment)
+    public function update(UserInterface $user, Payment $payment): bool
     {
         return $user->hasPermissionTo('view payments') ? true : false;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Payment  $payment
-     * @return mixed
-     */
-    public function delete(User $user, Payment $payment)
+    public function delete(UserInterface $user, Payment $payment): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Payment  $payment
-     * @return mixed
-     */
-    public function restore(User $user, Payment $payment)
+    public function restore(UserInterface $user, Payment $payment): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Payment  $payment
-     * @return mixed
-     */
-    public function forceDelete(User $user, Payment $payment)
+    public function forceDelete(UserInterface $user, Payment $payment): bool
     {
         return false;
     }
