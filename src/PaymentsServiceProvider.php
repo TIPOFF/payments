@@ -4,25 +4,19 @@ declare(strict_types=1);
 
 namespace Tipoff\Payments;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Tipoff\Payments\Models\Payments;
+use Tipoff\Payments\Policies\PaymentsPolicy;
+use Tipoff\Support\TipoffPackage;
+use Tipoff\Support\TipoffServiceProvider;
 
-class PaymentsServiceProvider extends PackageServiceProvider
+class PaymentsServiceProvider extends TipoffServiceProvider
 {
-    public function boot()
+    public function configureTipoffPackage(TipoffPackage $package): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        parent::boot();
-    }
-
-    public function configurePackage(Package $package): void
-    {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
         $package
+            ->hasPolicies([
+                Payments::class => PaymentsPolicy::class,
+            ])
             ->name('payments')
             ->hasConfigFile();
     }
