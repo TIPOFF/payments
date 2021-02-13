@@ -15,7 +15,7 @@ class PaymentsServiceProvider extends TipoffServiceProvider
     {
         $package
             ->hasPolicies([
-                Payments::class => PaymentPolicy::class,
+                Payment::class => PaymentPolicy::class,
             ])
             ->name('payments')
             ->hasConfigFile();
