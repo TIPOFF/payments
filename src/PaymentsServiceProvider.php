@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tipoff\Payments;
 
-use Tipoff\Payments\Models\Payments;
-use Tipoff\Payments\Policies\PaymentsPolicy;
+use Tipoff\Payments\Models\Payment;
+use Tipoff\Payments\Policies\PaymentPolicy;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 
@@ -15,7 +15,7 @@ class PaymentsServiceProvider extends TipoffServiceProvider
     {
         $package
             ->hasPolicies([
-                Payments::class => PaymentsPolicy::class,
+                Payments::class => PaymentPolicy::class,
             ])
             ->name('payments')
             ->hasConfigFile();
