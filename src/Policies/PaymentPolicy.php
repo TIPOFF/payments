@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tipoff\Payments\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Tipoff\Support\Contracts\Models\UserInterface;
 use Tipoff\Payments\Models\Payment;
+use Tipoff\Support\Contracts\Models\UserInterface;
 
 class PaymentPolicy
 {
