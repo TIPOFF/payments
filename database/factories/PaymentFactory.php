@@ -1,4 +1,8 @@
-<?php namespace Tipoff\Payments\Database\Factories;
+<?php 
+
+declare(strict_types=1);
+
+namespace Tipoff\Payments\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tipoff\Payments\Models\Payment;
