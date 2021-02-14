@@ -46,10 +46,7 @@
         "laravel": {
             "providers": [
                 "Tipoff\\Payments\\PaymentsServiceProvider"
-            ],
-            "aliases": {
-                "Payments": "Tipoff\\Payments\\PaymentsFacade"
-            }
+            ]
         }
     },
     "repositories": [
