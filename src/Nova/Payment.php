@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Nova;
+declare(strict_types=1);
+
+namespace Tipoff\Payments\Nova;
 
 use App\Nova\Actions\RequestRefund;
 use Illuminate\Http\Request;
@@ -13,10 +15,11 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Tipoff\Support\Nova\BaseResource;
 
-class Payment extends Resource
+class Payment extends BaseResource
 {
-    public static $model = \App\Models\Payment::class;
+    public static $model = \Tipoff\Payments\Models\Payment::class;
 
     public static $title = 'id';
 
@@ -44,66 +47,45 @@ class Payment extends Resource
 
     public static $group = 'Operations';
 
+    /** @psalm-suppress UndefinedClass */
+    protected array $filterClassList = [
+
+    ];
+
     public function fieldsForIndex(NovaRequest $request)
     {
-        return [
+        return array_filter([
             ID::make()->sortable(),
-            BelongsTo::make('Order')->sortable(),
-            BelongsTo::make('Customer')->sortable(),
+            nova('order') ? BelongsTo::make('Order', 'order', nova('order'))->sortable() : null,
+            nova('customer') ? BelongsTo::make('Customer', 'customer', nova('customer'))->sortable() : null,
             Currency::make('Amount')->asMinorUnits()->sortable(),
             Currency::make('Amount refunded')->asMinorUnits()->sortable()->nullable(),
             Date::make('Created', 'created_at')->sortable(),
-        ];
+        ]);
     }
 
     public function fields(Request $request)
     {
-        return [
-            BelongsTo::make('Order')->exceptOnForms(),
-            BelongsTo::make('Customer')->searchable()->withSubtitles()->exceptOnForms(),
+        return array_filter([
+            nova('order') ? BelongsTo::make('Order', 'order', nova('order'))->exceptOnForms() : null,
+            nova('order') ? BelongsTo::make('Customer', 'customer', nova('customer'))->searchable()->withSubtitles()->exceptOnForms() : null,
             Currency::make('Amount')->asMinorUnits()->exceptOnForms(),
             Currency::make('Amount refunded')->asMinorUnits()->nullable()->exceptOnForms(),
             Text::make('Method')->exceptOnForms(),
-            BelongsTo::make('Invoice')->exceptOnForms(),
+            nova('invoice') ? BelongsTo::make('Invoice', 'invoice', nova('invoice'))->exceptOnForms() : null,
 
-            HasMany::make('Refunds')->exceptOnForms(),
+            nova('refund') ? HasMany::make('Refunds', 'refunds', nova('refund'))->exceptOnForms() : null,
 
             new Panel('Data Fields', $this->dataFields()),
-        ];
+        ]);
     }
 
-    protected function dataFields()
+    protected function dataFields(): array
     {
-        return [
-            ID::make(),
-            BelongsTo::make('Creator', 'creator', \App\Nova\User::class)->exceptOnForms(),
-            DateTime::make('Created At')->exceptOnForms(),
-            BelongsTo::make('Updater', 'updater', \App\Nova\User::class)->exceptOnForms(),
-            DateTime::make('Updated At')->exceptOnForms(),
-        ];
-    }
-
-    public function cards(Request $request)
-    {
-        return [];
-    }
-
-    public function filters(Request $request)
-    {
-        return [
-            new Filters\OrderLocation,
-        ];
-    }
-
-    public function lenses(Request $request)
-    {
-        return [];
-    }
-
-    public function actions(Request $request)
-    {
-        return [
-            new RequestRefund,
-        ];
+        return array_merge(
+            parent::dataFields(),
+            $this->creatorDataFields(),
+            $this->updaterDataFields(),
+        );
     }
 }
