@@ -41,6 +41,7 @@ We include the following model:
 **List of Models**
 
 - Payment
+- LocationPaymentSetting
 
 For each of these models, this package implements an [authorization policy](https://laravel.com/docs/8.x/authorization) that extennds the roles and permissions approach of the [tipoff/authorization](https://github.com/tipoff/authorization) package. The policies for each model in this package are registered through the package.
 
