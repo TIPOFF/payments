@@ -16,7 +16,7 @@ class TestCase extends BaseTestCase
         return [
             SupportServiceProvider::class,
             PaymentsServiceProvider::class,
-            LocationsServiceProvider::class
+            LocationsServiceProvider::class,
         ];
     }
 }
