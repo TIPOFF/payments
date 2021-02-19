@@ -11,3 +11,12 @@ All notable changes to `payments` will be documented in this file.
 ## 1.1.0 - 2021-02-11
 
 - fix loadable error
+
+## 2.0.0 - 2021-02-19
+
+- add models
+- add factories
+- add policies
+- register policies
+- add nova resources
+- register nova resources
