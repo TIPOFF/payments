@@ -20,3 +20,4 @@ All notable changes to `payments` will be documented in this file.
 - register policies
 - add nova resources
 - register nova resources
+- location payment settings
