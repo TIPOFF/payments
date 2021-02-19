@@ -17,6 +17,9 @@ class PaymentsServiceProvider extends TipoffServiceProvider
             ->hasPolicies([
                 Payment::class => PaymentPolicy::class,
             ])
+            ->hasNovaResources([
+                \Tipoff\Payments\Nova\Payment::class,
+            ])
             ->name('payments')
             ->hasConfigFile();
     }
