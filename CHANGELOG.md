@@ -21,3 +21,7 @@ All notable changes to `payments` will be documented in this file.
 - add nova resources
 - register nova resources
 - location payment settings
+
+## 2.1.0 - 2021-03-04
+
+- additional payment providers
