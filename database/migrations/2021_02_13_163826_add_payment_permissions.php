@@ -2,23 +2,17 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
-use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\PermissionRegistrar;
+use Tipoff\Authorization\Permissions\BasePermissionsMigration;
 
-class AddPaymentPermissions extends Migration
+class AddPaymentPermissions extends BasePermissionsMigration
 {
     public function up()
     {
-        if (app()->has(Permission::class)) {
-            app(PermissionRegistrar::class)->forgetCachedPermissions();
-            
-            foreach ([
-                         'view payments',
-                         'update payments',
-                     ] as $name) {
-                app(Permission::class)::findOrCreate($name, null);
-            };
-        }
+        $permissions = [
+            'view payments',
+            'update payments',
+        ];
+
+        $this->createPermissions($permissions);
     }
 }

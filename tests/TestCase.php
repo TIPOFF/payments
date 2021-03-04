@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tipoff\Payments\Tests;
 
+use Spatie\Permission\PermissionServiceProvider;
+use Tipoff\Authorization\AuthorizationServiceProvider;
 use Tipoff\Locations\LocationsServiceProvider;
 use Tipoff\Payments\PaymentsServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
@@ -15,6 +17,8 @@ class TestCase extends BaseTestCase
     {
         return [
             SupportServiceProvider::class,
+            AuthorizationServiceProvider::class,
+            PermissionServiceProvider::class,
             PaymentsServiceProvider::class,
             LocationsServiceProvider::class,
         ];
