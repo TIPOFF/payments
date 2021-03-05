@@ -9,8 +9,8 @@ use Spatie\Permission\PermissionServiceProvider;
 use Tipoff\Authorization\AuthorizationServiceProvider;
 use Tipoff\Locations\LocationsServiceProvider;
 use Tipoff\Payments\PaymentsServiceProvider;
-use Tipoff\Support\SupportServiceProvider;
 use Tipoff\Payments\Tests\Support\Providers\NovaPackageServiceProvider;
+use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
 
 class TestCase extends BaseTestCase
