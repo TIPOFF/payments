@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tipoff\Payments\Services\PaymentGateway;
 
-use Tipoff\Authorization\Models\User;
-use Tipoff\Locations\Models\Location;
 use Exception;
 use Stripe\Stripe;
+use Tipoff\Authorization\Models\User;
+use Tipoff\Locations\Models\Location;
 use Tipoff\Payments\Exceptions\PaymentChargeException;
 use Tipoff\Payments\Models\LocationPaymentSetting;
 
