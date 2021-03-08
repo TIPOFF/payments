@@ -13,7 +13,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(app('order'))->index();
-            $table->foreignIdFor(app('customer')); // Defaults to customer_id on order, but allows payment to be made by different customer when paying an invoice
+            $table->foreignIdFor(app('user'));
             $table->foreignIdFor(app('invoice'))->nullable();
             $table->unsignedInteger('amount'); // Amount is in cents.
             $table->unsignedInteger('amount_refunded')->nullable();

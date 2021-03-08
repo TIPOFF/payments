@@ -29,8 +29,8 @@ class Payment extends BaseModel
             if (empty($payment->order_id)) {
                 throw new \Exception('A payment must be applied to an order.');
             }
-            if (empty($payment->customer_id)) {
-                throw new \Exception('A payment must be made by a customer.');
+            if (empty($payment->user_id)) {
+                throw new \Exception('A payment must be made by a user.');
             }
         });
     }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 declare(strict_types=1);
 
@@ -26,7 +26,7 @@ class PaymentFactory extends Factory
         return [
             'charge_id'   => $this->faker->numberBetween(100000, 900000),
             'order_id'    => randomOrCreate(app('order')),
-            'customer_id' => randomOrCreate(app('customer')),
+            'user_id'     => randomOrCreate(app('user')),
             'invoice_id'  => randomOrCreate(app('invoice')),
             'amount'      => $this->faker->numberBetween(100, 40000),
             'method'      => $this->faker->randomElement(['online', 'phone', 'in-person']),
