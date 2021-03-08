@@ -29,8 +29,4 @@ class StripePaymentGateway implements PaymentGateway
 
         throw new PaymentChargeException('Stripe not configured for location');
     }
-
-    public function setLocation()
-    {
-    }
 }
