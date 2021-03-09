@@ -29,7 +29,7 @@ class PaymentPolicy
 
     public function update(UserInterface $user, Payment $payment): bool
     {
-        return $user->hasPermissionTo('view payments') ? true : false;
+        return $user->hasPermissionTo('update payments') ? true : false;
     }
 
     public function delete(UserInterface $user, Payment $payment): bool
