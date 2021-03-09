@@ -8,6 +8,7 @@ use Laravel\Nova\NovaCoreServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 use Tipoff\Addresses\AddressesServiceProvider;
 use Tipoff\Authorization\AuthorizationServiceProvider;
+use Tipoff\Checkout\CheckoutServiceProvider;
 use Tipoff\Invoices\InvoicesServiceProvider;
 use Tipoff\Locations\LocationsServiceProvider;
 use Tipoff\Payments\PaymentsServiceProvider;
@@ -27,6 +28,7 @@ class TestCase extends BaseTestCase
             InvoicesServiceProvider::class,
             AddressesServiceProvider::class,
             LocationsServiceProvider::class,
+            CheckoutServiceProvider::class,
             NovaCoreServiceProvider::class,
             NovaPackageServiceProvider::class,
         ];
