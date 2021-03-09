@@ -17,6 +17,7 @@
     "require": {
         "php": "^7.4|^8.0",
         "tipoff/authorization": "^2.5.0",
+        "tipoff/checkout": "2.3.2",
         "tipoff/invoices": "2.0.0",
         "tipoff/locations": "^2.4.0",
         "tipoff/refunds": "^2.1.0",
