@@ -25,3 +25,8 @@ All notable changes to `payments` will be documented in this file.
 ## 2.1.0 - 2021-03-04
 
 - additional payment providers
+
+## 2.2.0 - 2021-03-09
+
+- change migration
+- replace customer relationship with user
