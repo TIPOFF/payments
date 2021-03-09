@@ -10,8 +10,7 @@ class AddPaymentPermissions extends BasePermissionsMigration
     {
         $permissions = [
             'view payments' => ['Owner', 'Staff'],
-            'update payments' => ['Owner'],
-            'delete payments' => [],   // Admin only
+            'update payments' => ['Owner']
         ];
 
         $this->createPermissions($permissions);
