@@ -16,6 +16,11 @@ class LocationPaymentSetting extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    public static function forLocation(Location $location): ?self
+    {
+        return static::query()->where('location_id', '=', $location->id)->first();
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
