@@ -12,10 +12,10 @@ use Tipoff\Checkout\CheckoutServiceProvider;
 use Tipoff\Invoices\InvoicesServiceProvider;
 use Tipoff\Locations\LocationsServiceProvider;
 use Tipoff\Payments\PaymentsServiceProvider;
+use Tipoff\Statuses\StatusesServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
 use Tipoff\TestSupport\Providers\NovaPackageServiceProvider;
-use Tipoff\Statuses\StatusesServiceProvider;
 
 class TestCase extends BaseTestCase
 {
