@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Payments\Models;
 
+use Assert\Assert;
 use Illuminate\Database\Eloquent\Model;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
@@ -26,12 +27,10 @@ class Payment extends BaseModel
         parent::boot();
 
         static::saving(function ($payment) {
-            if (empty($payment->order_id)) {
-                throw new \Exception('A payment must be applied to an order.');
-            }
-            if (empty($payment->user_id)) {
-                throw new \Exception('A payment must be made by a user.');
-            }
+            Assert::lazy()
+                ->that($payment->order_id)->notEmpty('A payment must be applied to an order.')
+                ->that($payment->user_id)->notEmpty('A payment must be made by a user.')
+                ->verifyNow();
         });
     }
 
