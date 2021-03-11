@@ -71,6 +71,7 @@ class LocationPaymentSetting extends BaseModel
     public static function stripeEnvKeyPair(?string $envPrefix = null): array
     {
         $keyPrefix = strtoupper($envPrefix ?? '');
+
         return [
             'publishable' => env("{$keyPrefix}STRIPE_PUBLISHABLE_KEY"),
             'secret' => env("{$keyPrefix}STRIPE_SECRET_KEY"),

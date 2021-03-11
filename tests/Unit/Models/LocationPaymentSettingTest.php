@@ -57,7 +57,7 @@ class LocationPaymentSettingTest extends TestCase
                 'ABC' => [
                     'publishable' => 'ABC_PUB',
                     'secret' => 'ABC_SEC',
-                ]
+                ],
             ],
         ]);
 
@@ -86,7 +86,7 @@ class LocationPaymentSettingTest extends TestCase
                 'ABC' => [
                     'publishable' => 'ABC_PUB',
                     'secret' => 'ABC_SEC',
-                ]
+                ],
             ],
         ]);
 
@@ -111,7 +111,7 @@ class LocationPaymentSettingTest extends TestCase
                 'ABC' => [
                     'publishable' => 'ABC_PUB',
                     'secret' => 'ABC_SEC',
-                ]
+                ],
             ],
         ]);
 
