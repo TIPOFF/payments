@@ -16,7 +16,7 @@ class StripePaymentGateway implements PaymentGateway
     public function charge(Location $location, User $user, int $amount, array $options = []): object
     {
         $paymentSettings = LocationPaymentSetting::forLocation($location);
-        if (!$paymentSettings || !$paymentSettings->stripe_secret) {
+        if (! $paymentSettings || ! $paymentSettings->stripe_secret) {
             throw new PaymentChargeException('Stripe not configured for location.');
         }
 

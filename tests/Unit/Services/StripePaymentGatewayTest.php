@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tipoff\Payments\Tests\Unit\Services;
 
-
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Locations\Models\Location;
