@@ -12,6 +12,7 @@ use Tipoff\Checkout\CheckoutServiceProvider;
 use Tipoff\Invoices\InvoicesServiceProvider;
 use Tipoff\Locations\LocationsServiceProvider;
 use Tipoff\Payments\PaymentsServiceProvider;
+use Tipoff\Statuses\StatusesServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
 use Tipoff\TestSupport\Providers\NovaPackageServiceProvider;
@@ -31,6 +32,7 @@ class TestCase extends BaseTestCase
             CheckoutServiceProvider::class,
             NovaCoreServiceProvider::class,
             NovaPackageServiceProvider::class,
+            StatusesServiceProvider::class,
         ];
     }
 }
