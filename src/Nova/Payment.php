@@ -55,7 +55,7 @@ class Payment extends BaseResource
         return array_filter([
             ID::make()->sortable(),
             nova('order') ? BelongsTo::make('Order', 'order', nova('order'))->sortable() : null,
-            nova('customer') ? BelongsTo::make('Customer', 'customer', nova('customer'))->sortable() : null,
+            nova('user') ? BelongsTo::make('Customer', 'user', nova('user'))->sortable() : null,
             Currency::make('Amount')->asMinorUnits()->sortable(),
             Currency::make('Amount refunded')->asMinorUnits()->sortable()->nullable(),
             Date::make('Created', 'created_at')->sortable(),
@@ -66,7 +66,7 @@ class Payment extends BaseResource
     {
         return array_filter([
             nova('order') ? BelongsTo::make('Order', 'order', nova('order'))->exceptOnForms() : null,
-            nova('order') ? BelongsTo::make('Customer', 'customer', nova('customer'))->searchable()->withSubtitles()->exceptOnForms() : null,
+            nova('user') ? BelongsTo::make('Customer', 'user', nova('user'))->searchable()->withSubtitles()->exceptOnForms() : null,
             Currency::make('Amount')->asMinorUnits()->exceptOnForms(),
             Currency::make('Amount refunded')->asMinorUnits()->nullable()->exceptOnForms(),
             Text::make('Method')->exceptOnForms(),
