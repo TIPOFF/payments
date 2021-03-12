@@ -30,3 +30,10 @@ All notable changes to `payments` will be documented in this file.
 
 - change migration
 - replace customer relationship with user
+
+## 2.3.0 - 2021-03-12
+
+- add stripe keys to .env & config
+- implement addresses
+- migrate permissions
+- grant permissions to roles
