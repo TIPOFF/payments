@@ -37,3 +37,9 @@ All notable changes to `payments` will be documented in this file.
 - implement addresses
 - migrate permissions
 - grant permissions to roles
+
+## 2.4.0 - 2021-03-12
+
+- remove location payments model
+- expand location payments settings
+- nova resource group
