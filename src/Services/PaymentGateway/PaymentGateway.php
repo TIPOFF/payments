@@ -6,8 +6,9 @@ namespace Tipoff\Payments\Services\PaymentGateway;
 
 use Tipoff\Authorization\Models\User;
 use Tipoff\Locations\Models\Location;
+use Tipoff\Support\Contracts\Services\BaseService;
 
-interface PaymentGateway
+interface PaymentGateway extends BaseService
 {
     public function charge(Location $location, User $user, int $amount, array $options = []): object;
 }

@@ -6,6 +6,8 @@ namespace Tipoff\Payments;
 
 use Tipoff\Payments\Models\Payment;
 use Tipoff\Payments\Policies\PaymentPolicy;
+use Tipoff\Payments\Services\PaymentGateway\PaymentGateway;
+use Tipoff\Payments\Services\PaymentGateway\StripePaymentGateway;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 
@@ -19,6 +21,9 @@ class PaymentsServiceProvider extends TipoffServiceProvider
             ])
             ->hasNovaResources([
                 \Tipoff\Payments\Nova\Payment::class,
+            ])
+            ->hasServices([
+                PaymentGateway::class => StripePaymentGateway::class,
             ])
             ->name('payments')
             ->hasConfigFile();
