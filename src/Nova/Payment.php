@@ -24,6 +24,8 @@ class Payment extends BaseResource
     public static $search = [
         'id',
     ];
+    
+    public static $group = 'Ecommerce';
 
     public static function indexQuery(NovaRequest $request, $query)
     {
@@ -42,8 +44,6 @@ class Payment extends BaseResource
             return $orderlocation->whereIn('location_id', $request->user()->locations->pluck('id'));
         });
     }
-
-    public static $group = 'Operations';
 
     /** @psalm-suppress UndefinedClass */
     protected array $filterClassList = [
