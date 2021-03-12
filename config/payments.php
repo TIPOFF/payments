@@ -1,12 +1,11 @@
 <?php
 
-use Tipoff\Payments\Models\LocationPaymentSetting;
+use Tipoff\Payments\Objects\PaymentSettings;
 
 return [
     'stripe_keys' => [
         /**
          * Stripe Key resolution priority is
-         * - LocationPaymentSetting DB fields
          * - location specific config setting
          * - default config setting
          *
@@ -19,11 +18,11 @@ return [
         ],
 
         /**
-         * Default keys are used if location does not have an explicit setting, either directly
-         * in the DB record or in the locations specific key configuration.
+         * Default keys are used if location does not have an explicit setting
+         * in the locations specific key configuration.
          *
          * If no prefix is provided, STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY env values are used
          */
-        'default' => LocationPaymentSetting::stripeEnvKeyPair(),
+        'default' => PaymentSettings::stripeEnvKeyPair(),
     ],
 ];

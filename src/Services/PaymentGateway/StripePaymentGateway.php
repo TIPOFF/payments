@@ -9,14 +9,14 @@ use Stripe\Stripe;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Locations\Models\Location;
 use Tipoff\Payments\Exceptions\PaymentChargeException;
-use Tipoff\Payments\Models\LocationPaymentSetting;
+use Tipoff\Payments\Objects\PaymentSettings;
 
 class StripePaymentGateway implements PaymentGateway
 {
     public function charge(Location $location, User $user, int $amount, array $options = []): object
     {
-        $paymentSettings = LocationPaymentSetting::forLocation($location);
-        if (! $paymentSettings || ! $paymentSettings->stripe_secret) {
+        $paymentSettings = PaymentSettings::forLocation($location);
+        if (! $paymentSettings->getStripeSecret()) {
             throw new PaymentChargeException('Stripe not configured for location.');
         }
 
@@ -25,7 +25,7 @@ class StripePaymentGateway implements PaymentGateway
         }
 
         try {
-            Stripe::setApiKey($paymentSettings->stripe_secret);
+            Stripe::setApiKey($paymentSettings->getStripeSecret());
 
             return $user->charge($amount, $options['payment_method_id'], [
                 'description' => $options['description'] ?? '',
