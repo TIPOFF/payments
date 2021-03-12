@@ -1,6 +1,6 @@
 <?php
 
-use Tipoff\Payments\Models\LocationPaymentSetting;
+use Tipoff\Payments\Objects\PaymentSettings;
 
 return [
     'stripe_keys' => [
@@ -24,6 +24,6 @@ return [
          *
          * If no prefix is provided, STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY env values are used
          */
-        'default' => LocationPaymentSetting::stripeEnvKeyPair(),
+        'default' => PaymentSettings::stripeEnvKeyPair(),
     ],
 ];

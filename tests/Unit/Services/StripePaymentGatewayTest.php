@@ -8,7 +8,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Locations\Models\Location;
 use Tipoff\Payments\Exceptions\PaymentChargeException;
-use Tipoff\Payments\Models\LocationPaymentSetting;
 use Tipoff\Payments\Services\PaymentGateway\PaymentGateway;
 use Tipoff\Payments\Tests\TestCase;
 
@@ -35,11 +34,6 @@ class StripePaymentGatewayTest extends TestCase
     {
         $user = User::factory()->create();
         $location = Location::factory()->create();
-        LocationPaymentSetting::factory()->create([
-            'location_id' => $location,
-            'stripe_publishable' => null,
-            'stripe_secret' => null,
-        ]);
 
         $service = $this->app->make(PaymentGateway::class);
 
@@ -54,10 +48,11 @@ class StripePaymentGatewayTest extends TestCase
     {
         $user = User::factory()->create();
         $location = Location::factory()->create();
-        LocationPaymentSetting::factory()->create([
-            'location_id' => $location,
-            'stripe_publishable' => 'PUB',
-            'stripe_secret' => 'SEC',
+        config()->set('payments.stripe_keys', [
+            'default' => [
+                'publishable' => 'DEF_PUB',
+                'secret' => 'DEV_SEC',
+            ],
         ]);
 
         $service = $this->app->make(PaymentGateway::class);
@@ -72,10 +67,11 @@ class StripePaymentGatewayTest extends TestCase
     public function charge_ok()
     {
         $location = Location::factory()->create();
-        LocationPaymentSetting::factory()->create([
-            'location_id' => $location,
-            'stripe_publishable' => 'PUB',
-            'stripe_secret' => 'SEC',
+        config()->set('payments.stripe_keys', [
+            'default' => [
+                'publishable' => 'DEF_PUB',
+                'secret' => 'DEV_SEC',
+            ],
         ]);
 
         $service = $this->app->make(PaymentGateway::class);
