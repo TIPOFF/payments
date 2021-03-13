@@ -16,12 +16,12 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "tipoff/authorization": "^2.5.4",
+        "tipoff/authorization": "^2.5.5",
         "tipoff/checkout": "^2.4.2",
         "tipoff/invoices": "^2.0.2",
         "tipoff/locations": "^2.5.4",
         "tipoff/refunds": "^2.1.0",
-        "tipoff/support": "^1.6.2"
+        "tipoff/support": "^1.6.3"
     },
     "require-dev": {
         "tipoff/test-support": "^1.2.0"
