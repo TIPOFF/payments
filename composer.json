@@ -17,7 +17,6 @@
     "require": {
         "php": "^7.4|^8.0",
         "tipoff/authorization": "^2.5.5",
-        "tipoff/invoices": "^2.0.2",
         "tipoff/locations": "^2.5.4",
         "tipoff/support": "dev-pdbreen/feature/payment-interface as 1.6.3"
     },
