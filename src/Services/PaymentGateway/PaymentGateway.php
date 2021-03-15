@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Tipoff\Payments\Services\PaymentGateway;
 
-use Tipoff\Authorization\Models\User;
 use Tipoff\Locations\Models\Location;
+use Tipoff\Payments\Enums\Gateway;
+use Tipoff\Support\Contracts\Payment\ChargeableInterface;
 use Tipoff\Support\Contracts\Services\BaseService;
 
 interface PaymentGateway extends BaseService
 {
-    public function charge(Location $location, User $user, int $amount, array $options = []): object;
+    public function getGatewayType(): Gateway;
+
+    public function charge(Location $location, ChargeableInterface $user, int $amount, array $options = []): string;
 }

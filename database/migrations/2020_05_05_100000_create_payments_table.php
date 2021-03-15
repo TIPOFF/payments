@@ -17,8 +17,10 @@ class CreatePaymentsTable extends Migration
             $table->foreignIdFor(app('invoice'))->nullable();
             $table->unsignedInteger('amount'); // Amount is in cents.
             $table->unsignedInteger('amount_refunded')->nullable();
-            $table->string('method'); // Will need to define these
-            $table->string('charge_id')->nullable(); // @todo rename to charge_number
+            $table->string('source');
+            $table->string('gateway');
+            $table->string('charge_number')->nullable();
+            $table->unsignedBigInteger('location_id');
 
             $table->foreignIdFor(app('user'), 'creator_id');
             $table->foreignIdFor(app('user'), 'updater_id')->nullable();

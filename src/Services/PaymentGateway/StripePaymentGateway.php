@@ -6,14 +6,20 @@ namespace Tipoff\Payments\Services\PaymentGateway;
 
 use Exception;
 use Stripe\Stripe;
-use Tipoff\Authorization\Models\User;
 use Tipoff\Locations\Models\Location;
+use Tipoff\Payments\Enums\Gateway;
 use Tipoff\Payments\Exceptions\PaymentChargeException;
 use Tipoff\Payments\Objects\PaymentSettings;
+use Tipoff\Support\Contracts\Payment\ChargeableInterface;
 
 class StripePaymentGateway implements PaymentGateway
 {
-    public function charge(Location $location, User $user, int $amount, array $options = []): object
+    public function getGatewayType(): Gateway
+    {
+        return Gateway::STRIPE();
+    }
+
+    public function charge(Location $location, ChargeableInterface $user, int $amount, array $options = []): string
     {
         $paymentSettings = PaymentSettings::forLocation($location);
         if (! $paymentSettings->getStripeSecret()) {
@@ -27,9 +33,11 @@ class StripePaymentGateway implements PaymentGateway
         try {
             Stripe::setApiKey($paymentSettings->getStripeSecret());
 
-            return $user->charge($amount, $options['payment_method_id'], [
+            $payment = $user->charge($amount, $options['payment_method_id'], [
                 'description' => $options['description'] ?? '',
             ]);
+
+            return $payment->id;
         } catch (Exception $exception) {
             throw new PaymentChargeException($exception->getMessage());
         }
