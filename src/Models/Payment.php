@@ -6,6 +6,7 @@ namespace Tipoff\Payments\Models;
 
 use Assert\Assert;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Tipoff\Addresses\Traits\HasAddresses;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Locations\Models\Location;
@@ -33,6 +34,7 @@ use Tipoff\Support\Traits\HasUpdater;
  * @property string charge_number
  * @property Gateway gateway
  * @property PaymentSource source
+ * @property Collection refunds
  * @property User creator
  * @property User updater
  * @property Carbon created_at
@@ -53,9 +55,11 @@ class Payment extends BaseModel implements PaymentInterface
 
     protected $casts = [
         'amount' => 'integer',
+        'amount_refunded' => 'integer',
         'gateway' => Enum::class.':'.Gateway::class,
         'source' => Enum::class.':'.PaymentSource::class,
         'order_id' => 'integer',
+        'location_id' => 'integer',
         'user_id' => 'integer',
         'creator_id' => 'integer',
         'updater_id' => 'integer',
