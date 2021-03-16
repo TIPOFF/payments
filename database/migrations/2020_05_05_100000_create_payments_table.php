@@ -12,18 +12,18 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(app('order'))->index();
             $table->foreignIdFor(app('user'));
-            $table->foreignIdFor(app('invoice'))->nullable();
+            $table->unsignedBigInteger('order_id')->index();
+            $table->unsignedBigInteger('invoice_id')->nullable()->index();
             $table->unsignedInteger('amount'); // Amount is in cents.
             $table->unsignedInteger('amount_refunded')->nullable();
             $table->string('source');
             $table->string('gateway');
             $table->string('charge_number')->nullable();
-            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('location_id')->index();
 
             $table->foreignIdFor(app('user'), 'creator_id');
-            $table->foreignIdFor(app('user'), 'updater_id')->nullable();
+            $table->foreignIdFor(app('user'), 'updater_id');
             $table->timestamps();
         });
     }
