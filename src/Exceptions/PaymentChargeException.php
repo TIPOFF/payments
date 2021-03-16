@@ -7,7 +7,7 @@ namespace Tipoff\Payments\Exceptions;
 use Exception;
 use Illuminate\Support\MessageBag;
 
-class PaymentChargeException extends Exception
+class PaymentChargeException extends Exception implements PaymentException
 {
     public function __construct(string $message)
     {

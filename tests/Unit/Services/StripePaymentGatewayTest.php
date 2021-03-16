@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tipoff\Payments\Tests\Unit\Services;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Laravel\Cashier\Payment;
+use Stripe\PaymentIntent;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Locations\Models\Location;
 use Tipoff\Payments\Exceptions\PaymentChargeException;
@@ -82,7 +84,9 @@ class StripePaymentGatewayTest extends TestCase
                 return $amount === 123 && $paymethod === 'abcd';
             })
             ->once()
-            ->andReturn((object) []);
+            ->andReturn(
+                new Payment(new PaymentIntent(['id' => 'ok']))
+            );
 
         $service->charge($location, $user, 123, ['payment_method_id' => 'abcd']);
     }

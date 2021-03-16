@@ -6,10 +6,18 @@ namespace Tipoff\Payments\Models;
 
 use Assert\Assert;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Tipoff\Addresses\Traits\HasAddresses;
 use Tipoff\Authorization\Models\User;
-use Tipoff\Checkout\Models\Order;
+use Tipoff\Locations\Models\Location;
+use Tipoff\Payments\Enums\Gateway;
+use Tipoff\Payments\Enums\PaymentSource;
+use Tipoff\Payments\Exceptions\RefundNotAvailableException;
+use Tipoff\Payments\Services\CreatePayment;
+use Tipoff\Support\Casts\Enum;
+use Tipoff\Support\Contracts\Checkout\OrderInterface;
+use Tipoff\Support\Contracts\Payment\PaymentInterface;
+use Tipoff\Support\Contracts\Payment\RefundInterface;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -17,33 +25,41 @@ use Tipoff\Support\Traits\HasUpdater;
 
 /**
  * @property int id
- * @property Order order
  * @property User user
+ * @property Location location
+ * @property OrderInterface order
  * @property int amount
  * @property int amount_refunded
- * @property string charge_id
+ * @property int amount_refundable
+ * @property string charge_number
+ * @property Gateway gateway
+ * @property PaymentSource source
+ * @property Collection refunds
  * @property User creator
  * @property User updater
  * @property Carbon created_at
  * @property Carbon updated_at
  * // Raw relations
  * @property int order_id
+ * @property int location_id
  * @property int user_id
  * @property int creator_id
  * @property int updater_id
  */
-class Payment extends BaseModel
+class Payment extends BaseModel implements PaymentInterface
 {
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
     use HasAddresses;
 
-    const METHOD_STRIPE = 'Stripe';
-
     protected $casts = [
         'amount' => 'integer',
+        'amount_refunded' => 'integer',
+        'gateway' => Enum::class.':'.Gateway::class,
+        'source' => Enum::class.':'.PaymentSource::class,
         'order_id' => 'integer',
+        'location_id' => 'integer',
         'user_id' => 'integer',
         'creator_id' => 'integer',
         'updater_id' => 'integer',
@@ -58,12 +74,19 @@ class Payment extends BaseModel
                 ->that($payment->order_id)->notEmpty('A payment must be applied to an order.')
                 ->that($payment->user_id)->notEmpty('A payment must be made by a user.')
                 ->verifyNow();
+
+            $payment->amount_refunded = $payment->amount_refunded ?? 0;
         });
     }
 
     public function order()
     {
         return $this->belongsTo(app('order'));
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(app('location'));
     }
 
     public function user()
@@ -81,33 +104,39 @@ class Payment extends BaseModel
         return $this->hasMany(app('refund'));
     }
 
-    public function getAmountRefundedAttribute()
-    {
-        return $this->refunds()->whereNotNull('issued_at')->sum('amount');
-    }
-
     public function getAmountRefundableAttribute()
     {
         return $this->amount - $this->amount_refunded;
     }
 
-    /**
-     * Refund payment request.
-     *
-     * @param int|null $amount Amount used in partial refunds.
-     * @param string $method
-     * @return mixed
-     */
-    public function requestRefund($amount = null, $method = 'Stripe')
+    public static function createPayment(int $locationId, $chargeable, int $amount, $paymentMethod, string $source): self
     {
-        /** @var Model $refundModel */
-        $refundModel = app('refund');
+        return app(CreatePayment::class)($locationId, $chargeable, $amount, $paymentMethod, $source);
+    }
 
-        return $refundModel::create([
-            'amount' => $amount,
-            'method' => $method,
-            'payment_id' => $this->id,
-            'creator_id' => auth()->user()->id,
-        ]);
+    public function attachOrder(OrderInterface $order): self
+    {
+        $this->order()->associate($order)->save();
+
+        return $this;
+    }
+
+    public function requestRefund(int $amount, string $refundMethod): RefundInterface
+    {
+        /** @var RefundInterface $service */
+        $service = findService(RefundInterface::class);
+        throw_unless($service, RefundNotAvailableException::class);
+
+        return $service::createRefund($this, $amount, $refundMethod);
+    }
+
+    public function getOrder(): OrderInterface
+    {
+        return $this->order;
+    }
+
+    public function getLocationId(): int
+    {
+        return $this->location_id;
     }
 }
