@@ -43,3 +43,8 @@ All notable changes to `payments` will be documented in this file.
 - remove location payments model
 - expand location payments settings
 - nova resource group
+
+## 2.5.0 - 2021-03-15
+
+- change database migrations
+- implement payment interface
