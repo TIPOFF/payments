@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Tipoff\Payments\Nova\Actions\RequestRefund;
 use Tipoff\Support\Nova\BaseResource;
 
 class Payment extends BaseResource
@@ -24,8 +25,12 @@ class Payment extends BaseResource
     public static $search = [
         'id',
     ];
-    
+
     public static $group = 'Ecommerce';
+
+    protected array $actionClassList = [
+        RequestRefund::class,
+    ];
 
     public static function indexQuery(NovaRequest $request, $query)
     {
@@ -40,14 +45,12 @@ class Payment extends BaseResource
             return $query;
         }
 
-        return $query->whereHas('order', function ($orderlocation) use ($request) {
-            return $orderlocation->whereIn('location_id', $request->user()->locations->pluck('id'));
-        });
+        return $query->whereIn('location_id', $request->user()->locations->pluck('id'));
     }
 
     /** @psalm-suppress UndefinedClass */
     protected array $filterClassList = [
-        \Tipoff\Locations\Nova\Filters\OrderLocation::class,
+        \Tipoff\Locations\Nova\Filters\Location::class,
     ];
 
     public function fieldsForIndex(NovaRequest $request)
