@@ -48,3 +48,7 @@ All notable changes to `payments` will be documented in this file.
 
 - change database migrations
 - implement payment interface
+
+## 2.5.1 - 2021-03-17
+
+- eliminate dependencies in migrations
