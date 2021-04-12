@@ -12,11 +12,11 @@ use Spatie\Permission\PermissionServiceProvider;
 use Tipoff\Addresses\AddressesServiceProvider;
 use Tipoff\Authorization\AuthorizationServiceProvider;
 use Tipoff\Locations\LocationsServiceProvider;
+use Tipoff\Payments\PaymentsServiceProvider;
 use Tipoff\Seo\SeoServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
 use Tipoff\TestSupport\Providers\NovaPackageServiceProvider;
-use Tipoff\Payments\PaymentsServiceProvider;
 
 class TestCase extends BaseTestCase
 {
