@@ -52,3 +52,7 @@ All notable changes to `payments` will be documented in this file.
 ## 2.5.1 - 2021-03-17
 
 - eliminate dependencies in migrations
+
+## 2.6.0 - 2021-04-11
+
+- bump package dependencies
